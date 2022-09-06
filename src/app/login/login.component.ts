@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,7 +10,7 @@ import { Observable} from 'rxjs';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  cep: Observable<any>;
+  cep: any;
 
   constructor(private http: HttpClient) { }
 
@@ -17,8 +18,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     // With Routing in Ionic, The OnInit lifecycle hook 
     // may not get called consistently.
     console.log("LoginPage - OnInit")
-    this.cep = this.http.get('viacep.com.br/ws/01001000/json/');
-    console.log(this.cep)
+    this.http.get(`viacep.com.br/ws/01001000/json/`).subscribe(res=>{this.cep=res;
+  });
+   
+    
   }
 
   ngOnDestroy() {
